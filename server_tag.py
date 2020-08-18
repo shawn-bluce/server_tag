@@ -5,8 +5,8 @@ import sys
 import iterm2
 import subprocess
 
-from utils import get_ip_by_host
 from server_config import get_server_list
+from utils import get_ip_by_host, color_text
 from settings import default_tab_color, config_file_name
 
 
@@ -51,7 +51,7 @@ def check_config_file():
     if os.path.exists(config_file_name):
         return True
     else:
-        print('[WARNING]: have no config file, you can run `python3 generate_config.py` to create it.')
+        color_text.warning('[WARNING]: have no config file, you can run `python3 generate_config.py` to create it.')
         return False
 
 

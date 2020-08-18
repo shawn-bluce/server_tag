@@ -3,6 +3,23 @@ import os
 import socket
 
 
+class ColorText:
+    def __init__(self):
+        self.warning_head = '\033[93m'
+        self.success_head = '\033[92m'
+        self.error_head = '\033[91m'
+        self.end = '\033[0m'
+
+    def success(self, text):
+        print('{}{}{}'.format(self.success_head, text, self.end))
+
+    def warning(self, text):
+        print('{}{}{}'.format(self.warning_head, text, self.end))
+
+    def error(self, text):
+        print('{}{}{}'.format(self.error_head, text, self.end))
+
+
 def analysis_ssh_config(host: str) -> str:
     """if host in ~/.ssh/config, get it real hostname"""
     home_path = os.environ.get('HOME')
@@ -31,3 +48,6 @@ def get_ip_by_host(host: str) -> str:
     host_from_ssh_config = analysis_ssh_config(host)
     host = host_from_ssh_config or host
     return socket.gethostbyname(host)
+
+
+color_text = ColorText()
