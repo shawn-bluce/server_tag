@@ -47,14 +47,5 @@ async def main(connection):
     await session.async_set_profile_properties(change)
 
 
-def check_config_file():
-    if os.path.exists(config_file_name):
-        return True
-    else:
-        color_text.warning('[WARNING]: have no config file, you can run `python3 generate_config.py` to create it.')
-        return False
-
-
 if __name__ == '__main__':
-    check_config_file()
     iterm2.run_until_complete(main)

@@ -2,6 +2,7 @@
 import json
 import iterm2
 
+from utils import color_text
 from settings import config_file_name
 
 
@@ -23,6 +24,11 @@ def get_server_list():
         content = open(config_file_name).read()
         config = json.loads(content)
     except FileNotFoundError:
+        color_text.warning('[WARNING] use default config, have no config file, '
+                           'you can run `python3 generate_config.py` to create it.')
+        return []
+    except json.JSONDecodeError:
+        color_text.error('[ERROR] use default config, because {} is invalid json data'.format(config_file_name))
         return []
 
     for group_name in config:
