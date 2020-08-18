@@ -19,8 +19,11 @@ class ServerConfig:
 
 def get_server_list():
     server_list = []
-    content = open(config_file_name).read()
-    config = json.loads(content)
+    try:
+        content = open(config_file_name).read()
+        config = json.loads(content)
+    except FileNotFoundError:
+        return []
 
     for group_name in config:
         group = config.get(group_name)
