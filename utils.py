@@ -1,15 +1,6 @@
 
 import os
 import socket
-import ipaddress
-
-
-def is_ip_address(host):
-    try:
-        ipaddress.ip_address(host)
-        return True
-    except ValueError:
-        return False
 
 
 def analysis_ssh_config(host: str) -> str:
@@ -31,12 +22,12 @@ def analysis_ssh_config(host: str) -> str:
 
 
 def get_ip_by_host(host: str) -> str:
+    """
+    :param host: domain or ip or ssh_config
+    :return: ip address
+    """
 
     # try to get host from ssh_config, if has ssh_config
     host_from_ssh_config = analysis_ssh_config(host)
     host = host_from_ssh_config or host
-
-    if is_ip_address(host):
-        return host
-    else:
-        return socket.gethostbyname(host)
+    return socket.gethostbyname(host)

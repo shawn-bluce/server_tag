@@ -4,22 +4,21 @@ import sys
 import iterm2
 import subprocess
 
-from server_config import product_server_map, test_server_map
-from settings import product_tab_color, testing_tab_color, other_tab_color
 from utils import get_ip_by_host
+from settings import default_tab_color
+from server_config import get_server_list
 
 
-def get_host_config(host):
-    host = get_ip_by_host(host)
-    prod_name = product_server_map.get(host)
-    test_name = test_server_map.get(host)
-
-    if prod_name:  # product env config
-        return prod_name, iterm2.Color(*product_tab_color)
-    elif test_name:  # testing env config
-        return test_name, iterm2.Color(*testing_tab_color)
-    else:  # other env config
-        return host, iterm2.Color(*other_tab_color)
+def get_host_config(host: str) -> tuple:
+    """
+    :param host: domain or ip or ssh_config
+    :return: tuple(host_name, iterm2_color)
+    """
+    ip_addr = get_ip_by_host(host)
+    for server in get_server_list():
+        if ip_addr == server.host:
+            return server.name, server.color
+    return host, default_tab_color
 
 
 async def main(connection):
@@ -30,15 +29,21 @@ async def main(connection):
 
     alias, color = get_host_config(host)
 
+    # set config
     change.set_badge_text(alias)
     change.set_tab_color(color)
     change.set_use_tab_color(True)
+    change.set_badge_color(color)
+
+    # apply new config for iterm2 and ssh to server
     await session.async_set_profile_properties(change)
     command = ['ssh'] + sys.argv[1:]
     subprocess.call(command)
+
+    # revert config
     change.set_badge_text('')
     change.set_use_tab_color(False)
     await session.async_set_profile_properties(change)
 
-
-iterm2.run_until_complete(main)
+if __name__ == '__main__':
+    iterm2.run_until_complete(main)
