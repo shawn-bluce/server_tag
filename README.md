@@ -15,7 +15,5 @@ Color your tab and show server name on your iterm, when you ssh to server.
 ## manage server
 Edit `server_config.json`. Outermost is server group, all server in same group use same color.
 
-## print position
-
 ## color 
 You can get RGB color on [https://www.w3schools.com/colors/colors_rgb.asp](https://www.w3schools.com/colors/colors_rgb.asp).
