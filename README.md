@@ -2,7 +2,7 @@
 # server tag
 *server tag 是一个给服务器打标签的 iterm2 插件*
 
-** [English README.md](https://github.com/shawn-bluce/server_tag/blob/master/README_en.md) **
+** [English README.md](https://github.com/shawn-bluce/server_tag/blob/master/README_EN.md) **
 
 ## 功能
 我们经常要登录到各种不同的服务器上，有些是自己个人的、有些是公司的测试环境、有些是公司的生产环境、有些又是开发环境等等。。。。当你使用的服务器多起来的时候就几乎不可避免的迷失在多个服务器之间，terminal 开了好多却分不清哪个是哪个，一不小心来了一手 `rm -rf` 当场人就没了。这个插件就是帮你实时的标记出当前操作的 tab 具体是连接到了哪台服务器上。
