@@ -4,6 +4,9 @@
 ## function
 Color your tab and show server name on your iterm, when you ssh to server.
 
+## show
+[![ScreenShot](https://raw.githubusercontent.com/shawn-bluce/pics_home/master/20200822140557.png)](https://www.bilibili.com/video/BV1r64y1c7su/)
+
 ## quick start
 1. check your python and pip using python3. **only support Python 3.** `python3 --version && pip3 --version`
 2. install iterm2 library with python, `pip3 install iterm2 --user`
