@@ -2,6 +2,10 @@
 # server tag
 *server tag 是一个给服务器打标签的 iterm2 插件*
 
+![GitHub](https://img.shields.io/github/license/shawn-bluce/server_tag) 
+![GitHub top language](https://img.shields.io/github/languages/top/shawn-bluce/server_tag)
+![GitHub repo size](https://img.shields.io/github/repo-size/shawn-bluce/server_tag)
+
 **[English README.md](https://github.com/shawn-bluce/server_tag/blob/master/README_EN.md)**
 
 ## 功能

@@ -1,6 +1,10 @@
 # server tag
 *server tag is tag for server plugin on iterm2.*
 
+![GitHub](https://img.shields.io/github/license/shawn-bluce/server_tag)
+![GitHub top language](https://img.shields.io/github/languages/top/shawn-bluce/server_tag)
+![GitHub repo size](https://img.shields.io/github/repo-size/shawn-bluce/server_tag)
+
 ## function
 Color your tab and show server name on your iterm, when you ssh to server.
 
