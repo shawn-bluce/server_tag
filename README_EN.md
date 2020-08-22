@@ -1,8 +1,15 @@
 # server tag
 *server tag is tag for server plugin on iterm2.*
 
+![GitHub](https://img.shields.io/github/license/shawn-bluce/server_tag)
+![GitHub top language](https://img.shields.io/github/languages/top/shawn-bluce/server_tag)
+![GitHub repo size](https://img.shields.io/github/repo-size/shawn-bluce/server_tag)
+
 ## function
 Color your tab and show server name on your iterm, when you ssh to server.
+
+## show
+[![ScreenShot](https://raw.githubusercontent.com/shawn-bluce/pics_home/master/20200822140557.png)](https://www.bilibili.com/video/BV1r64y1c7su/)
 
 ## quick start
 1. check your python and pip using python3. **only support Python 3.** `python3 --version && pip3 --version`
