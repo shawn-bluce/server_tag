@@ -3,8 +3,8 @@
 import sys
 import subprocess
 
-from utils import get_ip_by_host, color_text
 from settings import default_tab_color
+from utils import get_ip_by_host, color_text, parse_ssh_command
 
 try:
     import iterm2
@@ -30,7 +30,8 @@ async def main(connection):
     app = await iterm2.async_get_app(connection)
     session = app.current_terminal_window.current_tab.current_session
     change = iterm2.LocalWriteOnlyProfile()
-    host = sys.argv[1].split('@')[-1]
+    command = 'ssh ' + ' '.join(sys.argv[1:])
+    host = parse_ssh_command(full_command=command)
 
     alias, color = get_host_config(host)
 
@@ -42,8 +43,7 @@ async def main(connection):
 
     # apply new config for iterm2 and ssh to server
     await session.async_set_profile_properties(change)
-    command = ['ssh'] + sys.argv[1:]
-    subprocess.call(command)
+    subprocess.call(command.split())
 
     # revert config
     change.set_badge_text('')
