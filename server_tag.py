@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
 
-import os
-import sys
-import iterm2
-import subprocess
+try:
+    import sys
+    import iterm2
+    import subprocess
 
-from server_config import get_server_list
-from utils import get_ip_by_host, color_text
-from settings import default_tab_color, config_file_name
+    from server_config import get_server_list
+    from utils import get_ip_by_host, color_text
+    from settings import default_tab_color, config_file_name
+except ModuleNotFoundError as e:
+    print(e)
+    exit()
 
 
 def get_host_config(host: str) -> tuple:
