@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
 
-try:
-    import sys
-    import iterm2
-    import subprocess
+import sys
+import subprocess
 
+from utils import get_ip_by_host, color_text
+from settings import default_tab_color
+
+try:
+    import iterm2
     from server_config import get_server_list
-    from utils import get_ip_by_host, color_text
-    from settings import default_tab_color, config_file_name
-except ModuleNotFoundError as e:
-    print(e)
+except (ModuleNotFoundError, ImportError) as e:
+    color_text.error(e)
     exit()
 
 
