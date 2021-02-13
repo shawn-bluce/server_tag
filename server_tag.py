@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import sys
+import ipaddress
 import subprocess
 
 from settings import default_tab_color
@@ -14,6 +15,23 @@ except (ModuleNotFoundError, ImportError) as e:
     exit()
 
 
+def ip_math_rule(ip_addr, server_host):
+    """
+    check target ip math server_host rule
+    :param ip_addr: target ip address
+    :param server_host: server_config host rule
+    :return:
+    """
+    if '/' in server_host:
+        ip_set = ipaddress.IPv4Network(server_host, strict=False)
+        for ip in ip_set.hosts():
+            if ip_addr == ip.compressed:
+                return True
+        return False
+    else:
+        return ip_addr == server_host
+
+
 def get_host_config(host: str) -> tuple:
     """
     :param host: domain or ip or ssh_config
@@ -21,7 +39,7 @@ def get_host_config(host: str) -> tuple:
     """
     ip_addr = get_ip_by_host(host)
     for server in get_server_list():
-        if ip_addr == server.host:
+        if ip_math_rule(ip_addr, server.host):
             return server.name, server.color
     return host, default_tab_color
 
