@@ -1,13 +1,35 @@
 #!/usr/bin/env python3
 
-import os
 import sys
-import iterm2
+import ipaddress
 import subprocess
 
-from server_config import get_server_list
-from utils import get_ip_by_host, color_text
-from settings import default_tab_color, config_file_name
+from settings import default_tab_color
+from utils import get_ip_by_host, color_text, parse_ssh_command
+
+try:
+    import iterm2
+    from server_config import get_server_list
+except (ModuleNotFoundError, ImportError) as e:
+    color_text.error(e)
+    exit()
+
+
+def ip_math_rule(ip_addr, server_host):
+    """
+    check target ip math server_host rule
+    :param ip_addr: target ip address
+    :param server_host: server_config host rule
+    :return:
+    """
+    if '/' in server_host:
+        ip_set = ipaddress.IPv4Network(server_host, strict=False)
+        for ip in ip_set.hosts():
+            if ip_addr == ip.compressed:
+                return True
+        return False
+    else:
+        return ip_addr == server_host
 
 
 def get_host_config(host: str) -> tuple:
@@ -17,7 +39,7 @@ def get_host_config(host: str) -> tuple:
     """
     ip_addr = get_ip_by_host(host)
     for server in get_server_list():
-        if ip_addr == server.host:
+        if ip_math_rule(ip_addr, server.host):
             return server.name, server.color
     return host, default_tab_color
 
@@ -26,7 +48,8 @@ async def main(connection):
     app = await iterm2.async_get_app(connection)
     session = app.current_terminal_window.current_tab.current_session
     change = iterm2.LocalWriteOnlyProfile()
-    host = sys.argv[1].split('@')[-1]
+    command = 'ssh ' + ' '.join(sys.argv[1:])
+    host = parse_ssh_command(full_command=command)
 
     alias, color = get_host_config(host)
 
@@ -38,8 +61,7 @@ async def main(connection):
 
     # apply new config for iterm2 and ssh to server
     await session.async_set_profile_properties(change)
-    command = ['ssh'] + sys.argv[1:]
-    subprocess.call(command)
+    subprocess.call(command.split())
 
     # revert config
     change.set_badge_text('')

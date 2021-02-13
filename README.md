@@ -17,7 +17,13 @@
 图片可以点，是一段视频演示效果
 [![ScreenShot](https://raw.githubusercontent.com/shawn-bluce/pics_home/master/20200822140557.png)](https://www.bilibili.com/video/BV1r64y1c7su/)
 
-## 开始使用
+## 快速开始
+1. 检查 Python 版本和 pip 版本，该插件仅支持 Python3. 可以使用 `python3 --version && pip --version` 来检查版本
+2. 安装 `iterm2` 的官方库，使用 `pip3 install iterm2 --user`
+3. 克隆项目到本地，例如`/Users/shawn/Workstadion/server_tag/`
+4. 运行 `install.sh` 脚本（不成功的话可以尝试手动安装）
+
+## 手动安装
 1. 检查 Python 版本和 pip 版本，该插件仅支持 Python3. 可以使用 `python3 --version && pip --version` 来检查版本
 2. 安装 `iterm2` 的官方库，使用 `pip3 install iterm2 --user`
 3. 克隆项目到本地，例如`/Users/shawn/Workstadion/server_tag/`

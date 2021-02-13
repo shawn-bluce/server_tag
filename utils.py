@@ -1,6 +1,7 @@
 
 import os
 import socket
+import subprocess
 
 
 class ColorText:
@@ -48,6 +49,16 @@ def get_ip_by_host(host: str) -> str:
     host_from_ssh_config = analysis_ssh_config(host)
     host = host_from_ssh_config or host
     return socket.gethostbyname(host)
+
+
+def parse_ssh_command(full_command: str) -> str:
+    awk_parm = '{print $2}'
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    cmd = f"{dir_path}/ssh_opt_parse.sh {full_command} | grep 'SSH_HOST' | awk -F ' ' '{awk_parm}'"
+    host = subprocess.check_output(cmd, shell=True).strip()
+    if isinstance(host, bytes):
+        host = host.decode('utf-8')
+    return host
 
 
 color_text = ColorText()
